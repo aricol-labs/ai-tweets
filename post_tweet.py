@@ -4,11 +4,9 @@ import os
 
 consumer_key = os.getenv('API_KEY')
 consumer_secret = os.getenv('API_KEY_SECRET')
-access_token = os.getenv('ACCESS_TOKEN')
-access_token_secret = os.getenv('ACCESS_TOKEN_SECRET')
+
 
 def post_tweet(text):
-    # headers = {"Authorization": f"Bearer {current_app['BEARER_TOKEN']}"}
     request_token_url = "https://api.twitter.com/oauth/request_token?oauth_callback=oob&x_auth_access_type=write"
     oauth = OAuth1Session(consumer_key, client_secret=consumer_secret)
 
@@ -57,11 +55,7 @@ def post_tweet(text):
         "https://api.twitter.com/2/tweets",
         json={"text": text},
     )
-    # response = requests.post(
-    #     headers=headers,
-    #     url="https://api.twitter.com/2/tweets",
-    #     json={"text": text},
-    # )
+
     if response.status_code != 201:
         raise Exception(
             "Request returned an error: {} {}".format(response.status_code, response.text)
